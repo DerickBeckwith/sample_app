@@ -12,10 +12,16 @@ class UsersController < ApplicationController
   end
   
   def new
+    # signed in users should not access the new action
+    redirect_to(root_url) and return unless !signed_in?
+    
   	@user = User.new
   end
 
   def create
+    # signed in users should not access the create action
+    redirect_to(root_url) and return unless !signed_in?
+
     @user = User.new(user_params)
     if @user.save
       sign_in @user
