@@ -129,5 +129,14 @@ describe "Authentication" do
         specify { expect(response).to redirect_to(root_url) }
       end
     end
+
+    describe "as admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before { sign_in admin }
+
+      it "should not be able to delete own user" do
+        expect { delete user_path(admin)  }.not_to change(User, :count) 
+      end
+    end
   end
 end
