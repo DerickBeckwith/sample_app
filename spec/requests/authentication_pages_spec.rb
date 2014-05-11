@@ -24,7 +24,7 @@ describe "Authentication" do
       it { should have_selector('div.alert.alert-error') }
 
       describe "after visiting another page" do
-        before { click_link "Home" }  
+        before { click_link "Home" }
         it { should_not have_selector('div.alert.alert-error') }
       end
     end
@@ -135,7 +135,7 @@ describe "Authentication" do
       before { sign_in admin }
 
       it "should not be able to delete own user" do
-        expect { delete user_path(admin)  }.not_to change(User, :count) 
+        expect { delete user_path(admin)  }.not_to change(User, :count)
       end
     end
   end
