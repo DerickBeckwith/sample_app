@@ -6,15 +6,16 @@ class UsersController < ApplicationController
   def index
     @users = User.paginate(page: params[:page])
   end
-  
+
   def show
   	@user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
-  
+
   def new
     # signed in users should not access the new action
     redirect_to(root_url) and return unless !signed_in?
-    
+
   	@user = User.new
   end
 
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
 
   def edit
   end
-  
+
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
